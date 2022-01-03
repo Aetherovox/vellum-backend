@@ -4,6 +4,9 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
+from dj_rest_auth.registration.views import SocialLoginView
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from .serializers import UserSerializer, PasswordChangeSerializer
 from .models import User
 
@@ -35,4 +38,10 @@ class UserViewSet(ModelViewSet):
             # might want a custom failure code
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+# AUTHENTICATION VIEWS
+class GoogleAuthView(SocialLoginView):
+    client_class = OAuth2Client
+    adapter_class = GoogleOAuth2Adapter
+    callback_url =
 
