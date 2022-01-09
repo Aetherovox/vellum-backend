@@ -4,6 +4,9 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
+from dj_rest_auth.registration.views import SocialLoginView
+from dj_rest_auth.social_serializers import TwitterLoginSerializer
+from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from .serializers import UserSerializer, PasswordChangeSerializer
@@ -45,5 +48,9 @@ class UserViewSet(ModelViewSet):
 class GoogleAuthView(SocialLoginView):
     client_class = OAuth2Client
     adapter_class = GoogleOAuth2Adapter
+    callback_url = ''
 
 
+class TwitterAuthView(SocialLoginView):
+    serializer_class = TwitterLoginSerializer
+    adapter_class = TwitterOAuthAdapter

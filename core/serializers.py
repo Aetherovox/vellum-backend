@@ -1,6 +1,15 @@
 from rest_framework.serializers import ModelSerializer, CharField
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.password_validation import validate_password
 from .models import User
+
+
+class TokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['name'] = user.username
+        return token
 
 
 class UserSerializer(ModelSerializer):
