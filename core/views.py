@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView
 from dj_rest_auth.registration.views import SocialLoginView
 from dj_rest_auth.social_serializers import TwitterLoginSerializer
 from allauth.socialaccount.providers.twitter.views import TwitterOAuthAdapter
@@ -13,8 +14,13 @@ from .serializers import UserSerializer, PasswordChangeSerializer
 from .models import User
 
 
-# TODO: all password resets and email verifications in here. No cheating with dj_rest_auth
-#   - get rid of dj_rest_auth and use allauth
+# TODO: all password resets and email verifications in here.
+
+# class TokenObtainView(TokenObtainPairView):
+#
+
+
+
 
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer

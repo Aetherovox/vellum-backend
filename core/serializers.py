@@ -3,13 +3,18 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.password_validation import validate_password
 from .models import User
 
+# want to be able to sign in with either username or email
+class CustomObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self,attrs):
+        credentials = {
+            'email': '',
+            'password':attrs.get('password')
+        }
+        user_obj = User.objects.filter(username=attrs.get('email')).first() or User.objects.filter(email=attrs.get('username')).first()
+        if user_obj:
+            credentials['email'] = user_obj.email
 
-class TokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        token['name'] = user.username
-        return token
+        return super().validate(credentials)
 
 
 class UserSerializer(ModelSerializer):
