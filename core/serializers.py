@@ -4,11 +4,12 @@ from django.contrib.auth.password_validation import validate_password
 from .models import User
 
 
-class TokenObtainPairSerializer(TokenObtainPairSerializer):
+class CustomObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-        token['name'] = user.username
+        token['username'] = user.username
+        token['email'] = user.email
         return token
 
 
@@ -18,8 +19,8 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username','email','password',)
-        extra_kwargs = {'password':{'write_only': True}}
+        fields = ('username', 'email', 'password',)
+        extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -37,4 +38,3 @@ class PasswordChangeSerializer(ModelSerializer):
     def validate_new_password(self, value):
         validate_password(value)
         return value
-

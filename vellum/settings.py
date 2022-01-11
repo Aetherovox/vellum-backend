@@ -68,6 +68,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SITE_ID = 1
+
 ROOT_URLCONF = 'vellum.urls'
 
 CORS_ALLOWED_ORIGINS = ('http://localhost:3000',)
@@ -155,6 +157,7 @@ REST_FRAMEWORK = {
 }
 REST_USE_JWT = True
 
+# AUTHENTICATION_BACKENDS = ('core.authentication.AuthBackend',)
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
