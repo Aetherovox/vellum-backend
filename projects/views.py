@@ -5,7 +5,7 @@ from .models import Project
 
 
 # TODO: user can only access their own projects
-class ProjectsView(ModelViewSet):
+class ProjectsViewSet(ModelViewSet):
     serializer_class = ProjectSerializer
 
     def get_queryset(self):

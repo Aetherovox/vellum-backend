@@ -39,13 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
+    # apps for the api to serve the frontend
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'corsheaders',
-
-    # authentication
+    # third-party authentication
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'allauth.account',
@@ -53,8 +52,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.google',
 
-    # vellum apps
-    'core'
+    # Project apps
+    'core',
+    'projects'
+
 ]
 
 MIDDLEWARE = [

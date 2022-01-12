@@ -3,16 +3,16 @@ from .models import Project
 
 
 class ComponentSerializer(ModelSerializer):
-    project = PrimaryKeyRelatedField()
+    project = PrimaryKeyRelatedField(read_only=True)
 
 
 class ProjectSerializer(ModelSerializer):
-    user = PrimaryKeyRelatedField()
+    user = PrimaryKeyRelatedField(read_only=True)
     name = CharField()
-    components = ComponentSerializer()
 
     class Meta:
         model = Project
-        fields = ('user','name',)
+        fields = ('user', 'name',)
+
 
 
