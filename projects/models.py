@@ -11,9 +11,30 @@ class ProjectComponent(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='project_components')
 
 
+# TODO: acts, scenes, characters
 class Play(Project):
+    playwright = models.ForeignKey('User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    author = models.ForeignKey('User',on_delete=models.CASCADE)
+    date_created = models.DateTimeField(default=timezone.now())
     datetime_published = models.DateTimeField(default=timezone.now())
-    # TODO: acts, scenes, characters
 
+
+class Character(models.Model):
+    name = models.CharField(max_length=50)
+    play = models.ForeignKey(Play,on_delete=models.CASCADE, related_name='characters')
+    actor = models.ForeignKey('User',on_delete=models.PROTECT, related_name='roles')
+
+
+class Act(models.Model):
+    play = models.ForeignKey(Play, on_delete=models.CASCADE, related_name='acts')
+    num = models.PositiveSmallIntegerField(default=1)
+
+
+class Scene(models.Model):
+    play = models.ForeignKey(Play, on_delete=models.CASCADE, related_name='scenes')
+    num = models.PositiveSmallIntegerField(default=1)
+
+
+class Speech(models.Model):
+    character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='speech')
+    text = models.TextField()
