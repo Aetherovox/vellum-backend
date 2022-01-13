@@ -9,7 +9,6 @@ router.register(r'user', UserViewSet, basename='user')
 urlpatterns = [
     path('', include(router.urls)),
     path(r'auth/obtain', CustomObtainPairView.as_view()),
-    #path(r'auth/obtain', TokenObtainPairView.as_view()),
     path(r'auth/refresh', TokenRefreshView.as_view()),
     path(r'auth/social/login/google',GoogleAuthView.as_view(), name='google_login'),
     path(r'auth/social/login/twitter', TwitterAuthView.as_view(), name='twitter_login')
