@@ -24,6 +24,20 @@ class ProjectTree(MPTTModel):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='children')
 
 
+# Chapters and Scenes are a type of file
+
+class File(models.Model):
+    filename = models.CharField(max_length=255)
+    encoding = models.CharField(max_length=20)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+
+class Folder(models.Model):
+    name = models.CharField(max_length=50)
+    type = models.CharField(max_length=50)
+
+
 # TODO: acts, scenes, characters
 class Play(Project):
     playwright = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -64,4 +78,11 @@ class Scene(models.Model):
 class Speech(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='speech')
     text = models.TextField()
+
+
+class Chapter(models.Model):
+    novel = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='chapter')
+    number = models.PositiveIntegerField()
+    title = models.CharField(max_length=200, blank=True, null=True)
+    body = models.TextField()
 

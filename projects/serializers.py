@@ -3,18 +3,25 @@ from generic_relations.relations import GenericRelatedField
 
 from .models import *
 
+# TODO: Want to serialize based on composition, not inheritance
+
+
 class FileSerializer(ModelSerializer):
-    pass
+
+    class Meta:
+        fields = ("filename","encoding","date_created","date_updated")
+class FolderSerializer(ModelSerializer):
+    class Meta:
+        fields = ("name","type")
+
 
 class ProjectTreeSerializer(ModelSerializer):
     content_object = GenericRelatedField({
         File: FileSerializer,
         Folder: FolderSerializer,
-        Play: HyperlinkedRelatedField(
-            queryset=Play.objects.all(),
-            view_name = 'play-detail'
-        )
+
     })
+
     class Meta:
         model = ProjectTree
         fields = ('content_type', 'object_id', 'content_object', 'parent')
