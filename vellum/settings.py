@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    'mptt',
+    'generic_relations',
     'corsheaders',
     # third-party authentication
     'dj_rest_auth',
