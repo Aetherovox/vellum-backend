@@ -5,6 +5,7 @@ from .models import ProjectTree
 
 class ProjectTreeTests(TestCase):
     def setup(self) -> None:
+        # create from serializers
         pass
 
     def test_content_type_create(self):

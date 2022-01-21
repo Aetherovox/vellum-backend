@@ -17,7 +17,7 @@ class Project(models.Model):
 
 
 class ProjectTree(MPTTModel):
-    project = models.ForeignKey(Project, on_delete=models.PROTECT)
+    project = models.ForeignKey(Project, on_delete=models.PROTECT, related_name='tree')
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type','object_id')
